@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Pokemons } from './components/Pokemons/Pokemons';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from './contexts/theme-context';
+import { Pokemon } from './pages/Pokemon';
+import { useContext } from "react"
+import { ThemeContext } from "./contexts/theme-context"
 
 function App() {
+  const { theme } = useContext(ThemeContext)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Pokemons />}/>
+            <Route path="/pokemon/:id" element={<Pokemon />}/>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
   );
 }
 
